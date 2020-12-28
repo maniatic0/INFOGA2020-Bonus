@@ -24,6 +24,40 @@ def generateBoxDistribution(N):
 
 BoxDistribution = ("Box Distribution", generateBoxDistribution)
 
+def generateNGonDistribution(N):
+    points = [None] * N
+    for i in range(N):
+        angle = 2 * math.pi / N * i - math.pi / 2
+        points[i] = [math.cos(angle), math.sin(angle)]
+    return points
+
+NGonDistribution = ("N Gon Distribution", generateNGonDistribution)
+
+def generateRepeatedDistributionOrdered(N):
+    points = [None] * N
+    points[0] = [0, 0]
+    points[1] = [0, 1]
+    points[2] = [1, 0]
+    for i in range(3, N):
+        points[i] = [0, 0]
+    return points
+
+RepeatedOrderedDistribution = ("Repeated Ordered Distribution", generateRepeatedDistributionOrdered)
+
+def generateRepeatedDistributionInverted(N):
+    points = generateRepeatedDistributionOrdered(N)
+    points.reverse()
+    return points
+
+RepeatedInvertedDistribution = ("Repeated Inverted Distribution", generateRepeatedDistributionInverted)
+
+def generateRepeatedDistributionShuffled(N):
+    points = generateRepeatedDistributionOrdered(N)
+    random.shuffle(points)
+    return points
+
+RepeatedShuffledDistribution = ("Repeated Shuffled Distribution", generateRepeatedDistributionShuffled)
+
 def generateLineDistributionOrdered(N):
     points = [None] * N
     for i in range(N-1):

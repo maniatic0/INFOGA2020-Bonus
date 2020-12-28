@@ -25,7 +25,7 @@ def plotGenerator(generatorName, attempts, generator, sizes, algorithms):
             print("Number of Points | Time ms", file=f)
             for k in range(len(time_ms)):
                 print(f"{numbers[k]} | {time_ms[k]}", file=f)
-        print(f"Saved Numeric Results of '{algorithm_title}' at: '{number_res_path}'")
+        print(f"Saved Numeric Results of '{algorithm_title}' with Generator '{generatorName}' at: '{number_res_path}'")
 
     plt.legend()
     plt.ylabel('Time milliseconds')    
@@ -36,20 +36,28 @@ def plotGenerator(generatorName, attempts, generator, sizes, algorithms):
     fileName = generatorName.replace(" ", "_").lower()
     fig_path = results_path / f"{fileName}.png"
     fig.savefig(fig_path, dpi=fig.dpi)
-    print(f"Saved Figure at: '{fig_path}'")
+    print(f"Saved Figure of Generator '{generatorName}' at: '{fig_path}'")
 
 def main():
     algorithms = [graham.graham_scan, jarvis.jarvis_march]
     generators = [
-        #distributions.UniformDistribution,
-        #distributions.BoxDistribution,
-        #distributions.LineOrderedDistribution,
+        distributions.UniformDistribution,
+        distributions.BoxDistribution,
+        distributions.NGonDistribution,
+        distributions.RepeatedOrderedDistribution,
+        distributions.RepeatedInvertedDistribution,
+        distributions.RepeatedShuffledDistribution,
+        distributions.LineOrderedDistribution,
         distributions.LineInvertedDistribution,
-        #distributions.LineShuffledDistribution,
-        #distributions.Log2Distribution
+        distributions.LineShuffledDistribution,
+        distributions.Log2OrderedDistribution,
+        distributions.Log2InvertedDistribution,
+        distributions.Log2ShuffledDistribution,
+        distributions.SquaredOrderedDistribution,
+        distributions.SquaredInvertedDistribution,
+        distributions.SquaredShuffledDistribution,
         ]
-    #sizes = [2**i for i in range(2, 18)]
-    sizes = [2**i for i in range(2, 8)]
+    sizes = [2**i for i in range(2, 18)]
     attempts = 10
 
     for name, generator in generators:

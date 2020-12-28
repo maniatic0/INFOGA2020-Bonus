@@ -6,6 +6,9 @@ Created on Tue Dec 26 16:32:33 2020
 """
 import numpy as np
 
+def distancePoints(p0, p1):
+    return np.linalg.norm([p1[0] - p0[0], p1[1] - p0[1]])
+
 def cross2DPoints(p0, p1, p2):
     e0 = [p1[0] - p0[0], p1[1] - p0[1]]
     e1 = [p2[0] - p1[0], p2[1] - p1[1]]

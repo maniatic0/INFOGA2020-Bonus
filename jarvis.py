@@ -7,7 +7,7 @@ Created on Tue Dec 22 09:57:43 2020
 
 import numpy as np
 
-from utils import is_right_turn
+from utils import distancePoints, cross2DPoints
 
 def jarvis_march(S):
     if len(S) < 1:
@@ -20,7 +20,10 @@ def jarvis_march(S):
         P[i] = pointOnHull
         endPoint = S[0]
         for j in range(len(S)):
-            if endPoint == pointOnHull or is_right_turn(P[i], endPoint, S[j]): # Counter clock wise
+            crossVal = cross2DPoints(P[i], endPoint, S[j])
+            if endPoint == pointOnHull or crossVal < 0: # Counter clock wise
+                endPoint = S[j]
+            elif crossVal == 0 and distancePoints(P[i], endPoint) < distancePoints(P[i], S[j]):
                 endPoint = S[j]
         i = i + 1
         pointOnHull = endPoint

@@ -1,7 +1,7 @@
 import testing
 import graham
 import jarvis    
-import utils
+import distributions
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from pathlib import Path
@@ -40,8 +40,16 @@ def plotGenerator(generatorName, attempts, generator, sizes, algorithms):
 
 def main():
     algorithms = [graham.graham_scan, jarvis.jarvis_march]
-    generators = [("Uniform Distribution", utils.generateUniformPoints)]
-    sizes = [2**i for i in range(2, 18)]
+    generators = [
+        #distributions.UniformDistribution,
+        #distributions.BoxDistribution,
+        #distributions.LineOrderedDistribution,
+        distributions.LineInvertedDistribution,
+        #distributions.LineShuffledDistribution,
+        #distributions.Log2Distribution
+        ]
+    #sizes = [2**i for i in range(2, 18)]
+    sizes = [2**i for i in range(2, 8)]
     attempts = 10
 
     for name, generator in generators:

@@ -3,6 +3,7 @@ import time
 import sys
 import copy
 import numpy as np
+from pathlib import Path
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 
 
@@ -46,8 +47,13 @@ def testSize(attempts, generator, size, algorithms):
         for i, (check, time) in enumerate(temp_res):
             results[i] = results[i] + time
             if not check:
-                with open(f"{generator.__name__}_{size}_{attempt}_{algorithms[i].__name__}.txt", 'w') as f:
-                    f.write(points)
+                errorFile = f"{size}_{attempt}_{algorithms[i].__name__}.txt"
+                errorFolderPath = Path("errors") / generator.__name__
+                errorFolderPath.mkdir(parents=True, exist_ok=True)
+                error_path = errorFolderPath / errorFile
+                print(f"Error with Algorithm '{algorithms[i].__name__}' Generator '{generator.__name__}' Size: {size} Attempt: {attempt + 1}/{attempts}\n\tSaved at: '{error_path}'", file=sys.stderr)
+                with open(error_path, 'w') as f:
+                    f.write(str(points))
                     f.close()
 
     for i in range(len(algorithms)):

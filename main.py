@@ -2,9 +2,13 @@ import testing
 import graham
 import jarvis    
 import distributions
+
+from pathlib import Path
+import multiprocessing
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-from pathlib import Path
+
 
 def plotGenerator(generatorName, attempts, generator, sizes, algorithms):
     results = testing.testGenerator(attempts, generator, sizes, algorithms)
@@ -60,8 +64,12 @@ def main():
     sizes = [2**i for i in range(2, 14)]
     attempts = 10
 
-    for name, generator in generators:
-        plotGenerator(name, attempts, generator, sizes, algorithms)
+    cpus_to_use = int(multiprocessing.cpu_count() / 2)
+
+    with multiprocessing.Pool(processes=cpus_to_use) as pool:
+        tasks = [pool.apply_async(plotGenerator, args=(name, attempts, generator, sizes, algorithms)) for name, generator in generators]
+        for task in tasks:
+            task.get()            
     
 
 if __name__ == "__main__":

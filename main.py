@@ -50,14 +50,14 @@ def main():
         distributions.RepeatedOrderedDistribution,
         distributions.RepeatedInvertedDistribution,
         distributions.RepeatedShuffledDistribution,
-        distributions.LineOrderedDistribution,
-        distributions.LineInvertedDistribution,
-        distributions.LineShuffledDistribution,
+        distributions.LineOrderedDistribution, # Not recommended above 32k due to numerical instability
+        distributions.LineInvertedDistribution, # Not recommended above 32k due to numerical instability
+        distributions.LineShuffledDistribution, # Not recommended above 32k due to numerical instability
         distributions.Log2OrderedDistribution,
         distributions.Log2InvertedDistribution,
         distributions.Log2ShuffledDistribution,
         ]
-    sizes1 = [2**i for i in range(2, 18)]
+    sizes1 = [2**i for i in range(2, 15)]
 
     # These generators require smaller tests
     generators2 = [
@@ -74,8 +74,8 @@ def main():
 
     tests = [
         (sizes1, generators1),
-        #(sizes2, generators2),
-        #(sizes3, generators3),
+        (sizes2, generators2),
+        (sizes3, generators3),
     ]
 
     attempts = 10

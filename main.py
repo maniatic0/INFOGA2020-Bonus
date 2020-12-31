@@ -47,7 +47,7 @@ def main():
     generators = [
         distributions.UniformDistribution,
         distributions.BoxDistribution,
-        distributions.NGonDistribution,
+        distributions.NGonDistribution, # Not recommended above 10000 due to time
         distributions.RepeatedOrderedDistribution,
         distributions.RepeatedInvertedDistribution,
         distributions.RepeatedShuffledDistribution,
@@ -57,9 +57,9 @@ def main():
         distributions.Log2OrderedDistribution,
         distributions.Log2InvertedDistribution,
         distributions.Log2ShuffledDistribution,
-        distributions.SquaredOrderedDistribution,
-        distributions.SquaredInvertedDistribution,
-        distributions.SquaredShuffledDistribution,
+        distributions.SquaredOrderedDistribution, # Not recommended above 1000 due to numerical instability
+        distributions.SquaredInvertedDistribution, # Not recommended above 1000 due to numerical instability
+        distributions.SquaredShuffledDistribution, # Not recommended above 1000 due to numerical instability
         ]
     sizes = [2**i for i in range(2, 14)]
     attempts = 10

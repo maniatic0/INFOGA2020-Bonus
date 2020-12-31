@@ -53,9 +53,6 @@ def main():
         distributions.LineOrderedDistribution, # Not recommended above 32k due to numerical instability
         distributions.LineInvertedDistribution, # Not recommended above 32k due to numerical instability
         distributions.LineShuffledDistribution, # Not recommended above 32k due to numerical instability
-        distributions.Log2OrderedDistribution,
-        distributions.Log2InvertedDistribution,
-        distributions.Log2ShuffledDistribution,
         ]
     sizes1 = [2**i for i in range(2, 15)]
 
@@ -69,6 +66,9 @@ def main():
 
     generators3 = [
         distributions.NGonDistribution, # Not recommended above 10000 due to time
+        distributions.Log2OrderedDistribution, # Not recommended above 10000 due to time
+        distributions.Log2InvertedDistribution, # Not recommended above 10000 due to time
+        distributions.Log2ShuffledDistribution, # Not recommended above 10000 due to time
     ]
     sizes3 = [2**i for i in range(2, 14)]
 

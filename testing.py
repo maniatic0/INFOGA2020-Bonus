@@ -14,7 +14,13 @@ def checkAlgorithm(S, algorithm):
     
     SCopy = copy.deepcopy(S)
     tic = time.perf_counter_ns()
-    hull = algorithm(SCopy)
+    try:
+        hull = algorithm(SCopy)
+    except Exception as e:
+        toc = time.perf_counter_ns()
+        print(f"Exception triggered by {algorithm.__name__}: {e}", file=sys.stderr)
+        return (False, toc - tic)
+    
     toc = time.perf_counter_ns()
 
     real_hull_size = len(hull_res.vertices)

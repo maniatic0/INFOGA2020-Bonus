@@ -44,10 +44,9 @@ def plotGenerator(generatorName, attempts, generator, sizes, algorithms):
 
 def main():
     algorithms = [graham.graham_scan, jarvis.jarvis_march]
-    generators = [
+    generators1 = [
         distributions.UniformDistribution,
         distributions.BoxDistribution,
-        distributions.NGonDistribution, # Not recommended above 10000 due to time
         distributions.RepeatedOrderedDistribution,
         distributions.RepeatedInvertedDistribution,
         distributions.RepeatedShuffledDistribution,
@@ -57,17 +56,38 @@ def main():
         distributions.Log2OrderedDistribution,
         distributions.Log2InvertedDistribution,
         distributions.Log2ShuffledDistribution,
+        ]
+    sizes1 = [2**i for i in range(2, 18)]
+
+    # These generators require smaller tests
+    generators2 = [
         distributions.SquaredOrderedDistribution, # Not recommended above 1000 due to numerical instability
         distributions.SquaredInvertedDistribution, # Not recommended above 1000 due to numerical instability
         distributions.SquaredShuffledDistribution, # Not recommended above 1000 due to numerical instability
         ]
-    sizes = [2**i for i in range(2, 14)]
+    sizes2 = [2**i for i in range(2, 11)]
+
+    generators3 = [
+        distributions.NGonDistribution, # Not recommended above 10000 due to time
+    ]
+    sizes3 = [2**i for i in range(2, 14)]
+
+    tests = [
+        (sizes1, generators1),
+        #(sizes2, generators2),
+        #(sizes3, generators3),
+    ]
+
     attempts = 10
 
     cpus_to_use = int(multiprocessing.cpu_count() / 2)
 
     with multiprocessing.Pool(processes=cpus_to_use) as pool:
-        tasks = [pool.apply_async(plotGenerator, args=(name, attempts, generator, sizes, algorithms)) for name, generator in generators]
+        tasks = []
+        
+        for sizes, generators in tests:
+            tasks = tasks + [pool.apply_async(plotGenerator, args=(name, attempts, generator, sizes, algorithms)) for name, generator in generators]
+        
         for task in tasks:
             task.get()            
     

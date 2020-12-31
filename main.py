@@ -57,7 +57,7 @@ def main():
         distributions.SquaredInvertedDistribution,
         distributions.SquaredShuffledDistribution,
         ]
-    sizes = [2**i for i in range(2, 18)]
+    sizes = [2**i for i in range(2, 14)]
     attempts = 10
 
     for name, generator in generators:

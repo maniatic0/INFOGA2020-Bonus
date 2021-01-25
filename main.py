@@ -1,6 +1,7 @@
 import testing
 import graham
-import jarvis    
+import jarvis   
+import quickhull 
 import distributions
 
 from pathlib import Path
@@ -43,7 +44,7 @@ def plotGenerator(generatorName, attempts, generator, sizes, algorithms):
     print(f"Saved Figure of Generator '{generatorName}' at: '{fig_path}'")
 
 def main():
-    algorithms = [graham.graham_scan, jarvis.jarvis_march]
+    algorithms = [graham.graham_scan, jarvis.jarvis_march, quickhull.quickhull]
     generators1 = [
         distributions.UniformDistribution,
         distributions.BoxDistribution,
